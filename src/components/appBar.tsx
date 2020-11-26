@@ -17,7 +17,7 @@ export const AppBar = (props: { left?: JSX.Element; right?: JSX.Element }) => {
           <Menu.Item key="/">
             <Link
               to={{
-                pathname: "/",
+                pathname: "/"
               }}
             >
               Swap
@@ -26,7 +26,7 @@ export const AppBar = (props: { left?: JSX.Element; right?: JSX.Element }) => {
           <Menu.Item key="/info">
             <Link
               to={{
-                pathname: "/info",
+                pathname: "/info"
               }}
             >
               Charts
@@ -34,7 +34,7 @@ export const AppBar = (props: { left?: JSX.Element; right?: JSX.Element }) => {
           </Menu.Item>
           <Menu.Item key="trade">
             <a
-              href={"https://dex.projectserum.com"}
+              href={"https://bonfida.com/dex"}
               target="_blank"
               rel="noopener noreferrer"
             >
