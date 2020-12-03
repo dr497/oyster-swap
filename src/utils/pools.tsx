@@ -38,6 +38,7 @@ import {
 const LIQUIDITY_TOKEN_PRECISION = 8;
 
 export const LIQUIDITY_PROVIDER_FEE = 0.003;
+export const SERUM_FEE = 0.0005;
 
 export const removeLiquidity = async (
   connection: Connection,
@@ -135,12 +136,29 @@ export const removeLiquidity = async (
     )
   );
 
+  const deleteAccount = liquidityAmount === account.info.amount.toNumber();
+  if (deleteAccount) {
+    instructions.push(
+      Token.createCloseAccountInstruction(
+        programIds().token,
+        account.pubkey,
+        authority,
+        wallet.publicKey,
+        []
+      )
+    );
+  }
+
   let tx = await sendTransaction(
     connection,
     wallet,
     instructions.concat(cleanupInstructions),
     signers
   );
+
+  if (deleteAccount) {
+    cache.deleteAccount(account.pubkey);
+  }
 
   notify({
     message: "Liquidity Returned. Thank you for your support.",
