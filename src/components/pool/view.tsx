@@ -7,6 +7,7 @@ import { SettingOutlined } from "@ant-design/icons";
 import { AppBar } from "./../appBar";
 import { useWallet } from "../../utils/wallet";
 import { PoolCard } from "./card";
+import { MigrationModal } from "../migration";
 
 export const PoolOverview = () => {
   const owned = useOwnedPools();
@@ -33,10 +34,15 @@ export const PoolOverview = () => {
       />
       <div className="pool-grid">
         {owned.map((o) => (
-          <PoolCard pool={o.pool} account={o.account} />
+          <PoolCard
+            key={o.pool.pubkeys.account.toBase58()}
+            pool={o.pool}
+            account={o.account}
+          />
         ))}
         {!connected && <h3>Connect to a wallet to view your liquidity.</h3>}
       </div>
+      <MigrationModal />
     </>
   );
 };

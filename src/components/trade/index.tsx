@@ -29,15 +29,11 @@ import { PoolInfo } from "../../models";
 import { useEnrichedPools } from "../../context/market";
 import { AppBar } from "../appBar";
 import { Settings } from "../settings";
+import { MigrationModal } from "../migration";
 
 const { Text } = Typography;
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
-
-// TODO:
-// Compute price breakdown with/without fee
-// Show slippage
-// Show fee information
 
 export const TradeEntry = () => {
   const { wallet, connected } = useWallet();
@@ -173,7 +169,7 @@ export const TradeEntry = () => {
           B,
           true
         )}
-        {pendingTx && <Spin indicator={antIcon} className="trade-spinner" />}
+        {pendingTx && <Spin indicator={antIcon} className="add-spinner" />}
       </Button>
       <TradeInfo pool={pool} />
     </>
@@ -337,6 +333,7 @@ export const TradeView = () => {
       >
         <TradeEntry />
       </Card>
+      <MigrationModal />
     </>
   );
 };
