@@ -10,6 +10,7 @@ export const WALLET_PROVIDERS = [
   { name: "solongwallet.com", url: "http://solongwallet.com" },
   { name: "solflare.com", url: "https://solflare.com/access-wallet" },
   { name: "mathwallet.org", url: "https://www.mathwallet.org" },
+  { name: "Bonfida", url: "https://bonfida.com/wallet" },
 ];
 
 const WalletContext = React.createContext<any>(null);
