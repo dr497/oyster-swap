@@ -16,6 +16,7 @@ import {
 import { useConnectionConfig } from "../utils/connection";
 import { useLocalStorageState } from "../utils/utils";
 import { notify } from "../utils/notifications";
+import logoBonfida from "../assets/bonfida-logo.svg";
 
 const ASSET_URL =
   "https://cdn.jsdelivr.net/gh/solana-labs/oyster@main/assets/wallets";
@@ -53,6 +54,7 @@ export const WALLET_PROVIDERS = [
     icon: `https://www.phantom.app/img/logo.png`,
     adapter: PhantomWalletAdapter,
   },
+  { name: "Bonfida", url: "https://bonfida.com/wallet", icon: logoBonfida },
 ];
 
 const WalletContext = React.createContext<any>(null);
