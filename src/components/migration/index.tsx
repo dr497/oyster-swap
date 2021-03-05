@@ -7,7 +7,7 @@ import {
   removeLiquidity,
   useOwnedPools,
 } from "../../utils/pools";
-import { useWallet } from "../../utils/wallet";
+import { useWallet } from "../../context/wallet";
 import { PoolAccounts } from "../pool/quickView";
 import { LiquidityComponent } from "../../models";
 
@@ -145,24 +145,23 @@ export const MigrationModal = () => {
       onOk={handleOk}
       onCancel={handleCancel}
       closable={!executing}
-      footer={[
-        <Button
-          key="back"
-          onClick={handleCancel}
-          disabled={executing || completed}
-        >
-          Ask me later
-        </Button>,
-        <Button
-          key="submit"
-          type="primary"
-          loading={executing}
-          disabled={completed}
-          onClick={handleOk}
-        >
-          Migrate
-        </Button>,
-      ]}
+      footer={
+        completed
+          ? []
+          : [
+              <Button key="back" onClick={handleCancel} disabled={executing}>
+                Ask me later
+              </Button>,
+              <Button
+                key="submit"
+                type="primary"
+                loading={executing}
+                onClick={handleOk}
+              >
+                Migrate
+              </Button>,
+            ]
+      }
     >
       {completed ? (
         <div
@@ -175,7 +174,9 @@ export const MigrationModal = () => {
         >
           <h2>Congratulations!</h2>
           <div>Your migration has been successful.</div>
-          <Button type="primary">Close</Button>
+          <Button type="primary" onClick={handleOk}>
+            Close
+          </Button>
         </div>
       ) : (
         <>

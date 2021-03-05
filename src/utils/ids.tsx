@@ -31,21 +31,18 @@ export const PROGRAM_IDS = [
     name: "mainnet-beta",
     swap: () => ({
       current: {
-        pubkey: new PublicKey("9qvG1zUp8xF1Bi4m6UdRNby1BAAuaDrUxSpv4CmRRMjL"),
-        layout: TokenSwapLayoutV1,
+        pubkey: new PublicKey("SwaPpA9LAaLfeLi3a68M4DjnLqgtticKg6CnyNwgAC8"),
+        layout: TokenSwapLayout,
       },
-      legacy: [
-        // TODO: uncomment to enable legacy contract
-        // new PublicKey("9qvG1zUp8xF1Bi4m6UdRNby1BAAuaDrUxSpv4CmRRMjL"),
-      ],
+      legacy: [new PublicKey("9qvG1zUp8xF1Bi4m6UdRNby1BAAuaDrUxSpv4CmRRMjL")],
     }),
   },
   {
     name: "testnet",
     swap: () => ({
       current: {
-        pubkey: new PublicKey("2n2dsFSgmPcZ8jkmBZLGUM2nzuFqcBGQ3JEEj6RJJcEg"),
-        layout: TokenSwapLayoutV1,
+        pubkey: new PublicKey("SwaPpA9LAaLfeLi3a68M4DjnLqgtticKg6CnyNwgAC8"),
+        layout: TokenSwapLayout,
       },
       legacy: [],
     }),
@@ -54,7 +51,7 @@ export const PROGRAM_IDS = [
     name: "devnet",
     swap: () => ({
       current: {
-        pubkey: new PublicKey("6Cust2JhvweKLh4CVo1dt21s2PJ86uNGkziudpkNPaCj"),
+        pubkey: new PublicKey("SwaPpA9LAaLfeLi3a68M4DjnLqgtticKg6CnyNwgAC8"),
         layout: TokenSwapLayout,
       },
       legacy: [new PublicKey("BSfTAcBdqmvX5iE2PW88WFNNp2DHhLUaBKk5WrnxVkcJ")],

@@ -6,7 +6,7 @@ import React, {
   useState,
 } from "react";
 import { useConnection } from "./connection";
-import { useWallet } from "./wallet";
+import { useWallet } from "../context/wallet";
 import { AccountInfo, Connection, PublicKey } from "@solana/web3.js";
 import { programIds, SWAP_HOST_FEE_ADDRESS, WRAPPED_SOL_MINT } from "./ids";
 import { AccountLayout, u64, MintInfo, MintLayout } from "@solana/spl-token";
@@ -332,20 +332,20 @@ const UseNativeAccount = () => {
         setNativeAccount(acc);
       }
     });
-  }, [setNativeAccount, wallet, wallet.publicKey, connection]);
+  }, [setNativeAccount, wallet, wallet?.publicKey, connection]);
 
   useEffect(() => {
-    if (!wallet.publicKey) {
+    if (!wallet?.publicKey) {
       return;
     }
 
-    const account = wrapNativeAccount(wallet.publicKey, nativeAccount);
+    const account = wrapNativeAccount(wallet?.publicKey, nativeAccount);
     if (!account) {
       return;
     }
 
     accountsCache.set(account.pubkey.toBase58(), account);
-  }, [wallet.publicKey, nativeAccount]);
+  }, [wallet?.publicKey, nativeAccount]);
 
   return { nativeAccount };
 };
