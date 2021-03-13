@@ -1,20 +1,21 @@
 {
   "files": {
     "main.css": "/static/css/main.6b3e706b.chunk.css",
-    "main.js": "/static/js/main.bc2683a8.chunk.js",
+    "main.js": "/static/js/main.6c243dae.chunk.js",
     "runtime-main.js": "/static/js/runtime-main.da28964d.js",
     "static/css/2.b5a80ab8.chunk.css": "/static/css/2.b5a80ab8.chunk.css",
-    "static/js/2.531a8b25.chunk.js": "/static/js/2.531a8b25.chunk.js",
+    "static/js/2.0f039b9d.chunk.js": "/static/js/2.0f039b9d.chunk.js",
     "index.html": "/index.html",
-    "precache-manifest.728d594a2267b9157e317e9a2d78e292.js": "/precache-manifest.728d594a2267b9157e317e9a2d78e292.js",
+    "precache-manifest.7f8a8c5694a737c58fe47ace203f878b.js": "/precache-manifest.7f8a8c5694a737c58fe47ace203f878b.js",
     "service-worker.js": "/service-worker.js",
-    "static/js/2.531a8b25.chunk.js.LICENSE.txt": "/static/js/2.531a8b25.chunk.js.LICENSE.txt"
+    "static/js/2.0f039b9d.chunk.js.LICENSE.txt": "/static/js/2.0f039b9d.chunk.js.LICENSE.txt",
+    "static/media/bonfida-logo.svg": "/static/media/bonfida-logo.6678f729.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.da28964d.js",
     "static/css/2.b5a80ab8.chunk.css",
-    "static/js/2.531a8b25.chunk.js",
+    "static/js/2.0f039b9d.chunk.js",
     "static/css/main.6b3e706b.chunk.css",
-    "static/js/main.bc2683a8.chunk.js"
+    "static/js/main.6c243dae.chunk.js"
   ]
 }
