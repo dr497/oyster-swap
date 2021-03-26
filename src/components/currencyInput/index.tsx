@@ -1,12 +1,12 @@
 import React from "react";
 import { Card, Select } from "antd";
 import { NumericInput } from "../numericInput";
-import { getPoolName, getTokenName, isKnownMint } from "../../utils/utils";
+import { convert, getPoolName, getTokenName, isKnownMint } from "../../utils/utils";
 import {
   useUserAccounts,
-  useMint,
   useCachedPool,
   useAccountByMint,
+  cache,
 } from "../../utils/accounts";
 import "./styles.less";
 import { useConnectionConfig } from "../../utils/connection";
@@ -23,15 +23,14 @@ export const TokenDisplay = (props: {
   showBalance?: boolean;
 }) => {
   const { showBalance, mintAddress, name, icon } = props;
-  const tokenMint = useMint(mintAddress);
+  const tokenMint = cache.getMint(mintAddress);
   const tokenAccount = useAccountByMint(mintAddress);
 
   let balance: number = 0;
   let hasBalance: boolean = false;
   if (showBalance) {
     if (tokenAccount && tokenMint) {
-      balance =
-        tokenAccount.info.amount.toNumber() / Math.pow(10, tokenMint.decimals);
+      balance = convert(tokenAccount, tokenMint);
       hasBalance = balance > 0;
     }
   }
@@ -80,7 +79,7 @@ export const CurrencyInput = (props: {
 }) => {
   const { userAccounts } = useUserAccounts();
   const { pools } = useCachedPool();
-  const mint = useMint(props.mint);
+  const mint = cache.getMint(props.mint);
 
   const { tokens, tokenMap } = useConnectionConfig();
 
@@ -107,7 +106,7 @@ export const CurrencyInput = (props: {
   // group accounts by mint and use one with biggest balance
   const grouppedUserAccounts = userAccounts
     .sort((a, b) => {
-      return b.info.amount.toNumber() - a.info.amount.toNumber();
+      return b.info.amount.gt(a.info.amount) ? 1 : -1;
     })
     .reduce((map, acc) => {
       const mint = acc.info.mint.toBase58();
@@ -171,9 +170,7 @@ export const CurrencyInput = (props: {
       (a) => a.info.mint.toBase58() === props.mint
     );
     if (currentAccount && mint) {
-      return (
-        currentAccount.info.amount.toNumber() / Math.pow(10, mint.decimals)
-      );
+      return convert(currentAccount, mint);
     }
 
     return 0;
