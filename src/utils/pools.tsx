@@ -546,7 +546,7 @@ export const usePools = () => {
           return result;
         });
 
-      const toQuery = poolsArray
+      const toQuery = [...poolsArray
         .map(
           (p) =>
             [
@@ -556,13 +556,24 @@ export const usePools = () => {
               p.pubkeys.mint.toBase58(),
             ].filter((p) => p) as string[]
         )
-        .flat();
+        .flat()
+        .filter(acc => cache.get(acc) === undefined)
+        .reduce((acc, item) => {
+          acc.add(item);
+          return acc;
+        }, new Set<string>())
+        .keys()]
+        .sort();
 
       // This will pre-cache all accounts used by pools
       // All those accounts are updated whenever there is a change
       await getMultipleAccounts(connection, toQuery, "single").then(
         ({ keys, array }) => {
           return array.map((obj, index) => {
+            if (!obj) {
+              return undefined;
+            }
+
             const pubKey = new PublicKey(keys[index]);
             if (obj.data.length === AccountLayout.span) {
               return cache.addAccount(pubKey, obj);
@@ -573,7 +584,7 @@ export const usePools = () => {
             }
 
             return obj;
-          }) as any[];
+          }).filter(a => !!a) as any[];
         }
       );
 
@@ -1138,7 +1149,11 @@ export async function calculateDependentAmount(
 
   const constantPrice = pool.raw?.data?.curve?.constantPrice;
   if (constantPrice) {
-    depAdjustedAmount = (amount * depPrecision) / constantPrice.token_b_price;
+    if (isFirstIndependent) {
+      depAdjustedAmount = (amount * depPrecision) / constantPrice.token_b_price;
+    } else {
+      depAdjustedAmount = (amount * depPrecision) * constantPrice.token_b_price;
+    }
   } else {
     switch (+op) {
       case PoolOperation.Add:

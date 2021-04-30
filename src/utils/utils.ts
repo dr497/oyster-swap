@@ -75,7 +75,7 @@ export function isKnownMint(map: KnownTokenMap, mintAddress: string) {
   return !!map.get(mintAddress);
 }
 
-export const STABLE_COINS = new Set(["USDC", "wUSDC", "USDT"]);
+export const STABLE_COINS = new Set(["USDC", "wUSDC", "USDT", "wUSDT", "WUSDT"]);
 
 export function chunks<T>(array: T[], size: number): T[][] {
   return Array.apply<number, T[], T[][]>(
@@ -97,7 +97,11 @@ export function convert(
     typeof account === "number" ? new BN(account) : account.info.amount;
 
   const precision = new BN(10).pow(new BN(mint?.decimals || 0));
-  let result = amount.div(precision).toNumber() * rate;
+
+  // avoid overflowing 53 bit numbers on calling toNumber()
+  let div = amount.div(precision).toNumber();
+  let rem = amount.mod(precision).toNumber() / precision.toNumber();
+  let result = (div + rem) * rate;
 
   return result;
 }
